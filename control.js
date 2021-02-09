@@ -49,8 +49,8 @@ window.onload = () => {
         play.addEventListener('click', playAudio, false);
     }
     else{
-        play.addEventListener('mouseup', playAudio, false);
-        // play.addEventListener('touchend', playAudio, false);
+        // play.addEventListener('mouseup', playAudio, false);
+        play.addEventListener('touchend', playAudio, false);
     }
     
 
