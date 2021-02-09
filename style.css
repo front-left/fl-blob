@@ -43,5 +43,5 @@ h1 {
 	cursor: pointer;
 	border-radius: 4px;
 	letter-spacing: 0.1em;
-	z-index: 1;
+	z-index: 100;
 }
