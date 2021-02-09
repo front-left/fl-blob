@@ -14,25 +14,11 @@ body {
 }
 
 h1 {
-  font-size: 4vw;
+  font-size: 2.5rem;
   line-height: 1.6;
   margin: 0;
 }
-#control{
-  background: #3F4656;
-  display: flex;
-  padding: 20px;
-  border-radius: 10px;
-  position: absolute;
-  top: 90%;
-  z-index: 3;
-  box-shadow: 0 4px 20px -1px rgba(18, 22, 33, .7);
-}
 
-#noise{
-  position: absolute;
-  top: 50%;
-}
 
 #play{
   position: absolute;
@@ -44,5 +30,6 @@ h1 {
   cursor: pointer;
   transition: color 0.3s ease;
   user-select: none;
+  z-index: 3;
 }
 /* #play:hover { color: rgb(255, 35, 255); } */
