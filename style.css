@@ -45,4 +45,4 @@ h1 {
   transition: color 0.3s ease;
   user-select: none;
 }
-#play:hover { color: rgb(255, 35, 255); }
+/* #play:hover { color: rgb(255, 35, 255); } */
