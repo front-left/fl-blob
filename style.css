@@ -1,0 +1,48 @@
+*, *:after, *:before { box-sizing: inherit; }
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+body { 
+  font-family: -apple-system, sans-serif;
+  background: #000;
+  color: #eee;
+}
+
+h1 {
+  font-size: 4vw;
+  line-height: 1.6;
+  margin: 0;
+}
+#control{
+  background: #3F4656;
+  display: flex;
+  padding: 20px;
+  border-radius: 10px;
+  position: absolute;
+  top: 90%;
+  z-index: 3;
+  box-shadow: 0 4px 20px -1px rgba(18, 22, 33, .7);
+}
+
+#noise{
+  position: absolute;
+  top: 50%;
+}
+
+#play{
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+  top: 10%;
+  right: 35%;
+  padding: 2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+#play:hover { color: rgb(255, 35, 255); }
