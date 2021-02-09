@@ -37,11 +37,24 @@ function init(){
     analyser.connect(audioCtx.destination)
 }
 
+let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+if(isMobile){
+    console.log("mobile")
+}
 
 window.onload = () => {
     requestAnimationFrame(animate);
+    
+    if(!isMobile){
+        play.addEventListener('click', playAudio, false);
+    }
+    else{
+        play.addEventListener('mouseup', playAudio, false);
+        // play.addEventListener('touchend', playAudio, false);
+    }
+    
 
-    play.addEventListener('click', () => {
+    function playAudio(){
         if(!initialised){
             init();
             initialised = true;
@@ -53,8 +66,22 @@ window.onload = () => {
             audio.pause();
             play.innerHTML = 'Play';
         }
-        playing = !playing;
-    });
+        playing = !playing; 
+    }
+    // play.addEventListener('click', () => {
+    //     if(!initialised){
+    //         init();
+    //         initialised = true;
+    //     }
+    //     if(!playing){
+    //         audio.play();
+    //         play.innerHTML = 'Pause';
+    //     } else {
+    //         audio.pause();
+    //         play.innerHTML = 'Play';
+    //     }
+    //     playing = !playing;
+    // });
 
     window.onresize = () => {
         renderer.setSize(window.innerWidth,window.innerHeight); 
