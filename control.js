@@ -47,29 +47,29 @@ const parent = document.querySelector(".parent");
 window.onload = () => {
     // init();
     requestAnimationFrame(animate);
-    parent.addEventListener("click", (e) => {
-        const child = e.target.matches(".play-btn, .play-btn *");
-        if(child){
-            // init();
-            // audio.play();
-            console.log("maaate");
-            play.innerHTML = 'Pause';
-        }
-    });
-    // play.addEventListener(touchEvent, () => {
-    //     if(!initialised){
-    //         init();
-    //         initialised = true;
-    //     }
-    //     if(!playing){
-    //         audio.play();
+    // parent.addEventListener("click", (e) => {
+    //     const child = e.target.matches(".play-btn, .play-btn *");
+    //     if(child){
+    //         // init();
+    //         // audio.play();
+    //         console.log("maaate");
     //         play.innerHTML = 'Pause';
-    //     } else {
-    //         audio.pause();
-    //         play.innerHTML = 'Play';
     //     }
-    //     playing = !playing;
     // });
+    play.addEventListener(touchEvent, () => {
+        if(!initialised){
+            init();
+            initialised = true;
+        }
+        if(!playing){
+            audio.play();
+            play.innerHTML = 'Pause';
+        } else {
+            audio.pause();
+            play.innerHTML = 'Play';
+        }
+        playing = !playing;
+    });
 
     window.onresize = () => {
         renderer.setSize(window.innerWidth,window.innerHeight); 
