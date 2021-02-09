@@ -17,11 +17,12 @@ let play = document.getElementById('play');
 
 function init(){
     audioCtx  = new AudioContext();
-    audio = document.createElement('audio');
+    audio = document.getElementById('audio');
     audio.src = musicSrc;
+    audio.load();
     audio.loop = true;
     audio.crossOrigin = "anonymous";
-
+    // audio.controls = true;
     stream = audioCtx.createMediaElementSource(audio);
     analyser = audioCtx.createAnalyser();
     analyser.fftSize = fftSz;
@@ -42,32 +43,45 @@ if(isMobile){
     console.log("mobile")
 }
 
+let audioElement = document.getElementById("audio");
+
+let audioSrc = audioElement.src;
+console.log(audioSrc)
+
 window.onload = () => {
+    init();
     requestAnimationFrame(animate);
-    
-    if(!isMobile){
-        play.addEventListener('click', playAudio, false);
-    }
-    else{
-        // play.addEventListener('mouseup', playAudio, false);
-        play.addEventListener('touchend', playAudio, false);
-    }
+    audioElement.addEventListener('play', () => {
+        playing = !playing;
+        console.log(playing)
+    });
+    audioElement.addEventListener('pause', () => {
+        playing = !playing;
+        console.log(playing)
+    });
+    // if(!isMobile){
+    //     play.addEventListener('click', playAudio, false);
+    // }
+    // else{
+    //     // play.addEventListener('mouseup', playAudio, false);
+    //     play.addEventListener('touchend', playAudio, false);
+    // }
     
 
-    function playAudio(){
-        if(!initialised){
-            init();
-            initialised = true;
-        }
-        if(!playing){
-            audio.play();
-            play.innerHTML = 'Pause';
-        } else {
-            audio.pause();
-            play.innerHTML = 'Play';
-        }
-        playing = !playing; 
-    }
+    // function playAudio(){
+    //     if(!initialised){
+            
+    //         initialised = true;
+    //     }
+    //     if(!playing){
+    //         audio.play();
+    //         play.innerHTML = 'Pause';
+    //     } else {
+    //         audio.pause();
+    //         play.innerHTML = 'Play';
+    //     }
+    //     playing = !playing; 
+    // }
     // play.addEventListener('click', () => {
     //     if(!initialised){
     //         init();
