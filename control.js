@@ -50,7 +50,7 @@ window.onload = () => {
     }
     else{
         // play.addEventListener('mouseup', playAudio, false);
-        play.addEventListener('touchend', playAudio, false);
+        play.addEventListener('touchstart', playAudio, false);
     }
     
 
