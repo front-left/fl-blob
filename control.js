@@ -43,24 +43,31 @@ function init(){
     analyser.connect(audioCtx.destination)
 }
 let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
-
+const parent = document.querySelector(".parent");
 window.onload = () => {
     // init();
     requestAnimationFrame(animate);
-    play.addEventListener(touchEvent, () => {
-        if(!initialised){
+    parent.addEventListener("click", (e) => {
+        const child = e.target.matches(".play-btn, .play-btn *");
+        if(child){
             init();
-            initialised = true;
-        }
-        if(!playing){
             audio.play();
-            play.innerHTML = 'Pause';
-        } else {
-            audio.pause();
-            play.innerHTML = 'Play';
         }
-        playing = !playing;
     });
+    // play.addEventListener(touchEvent, () => {
+    //     if(!initialised){
+    //         init();
+    //         initialised = true;
+    //     }
+    //     if(!playing){
+    //         audio.play();
+    //         play.innerHTML = 'Pause';
+    //     } else {
+    //         audio.pause();
+    //         play.innerHTML = 'Play';
+    //     }
+    //     playing = !playing;
+    // });
 
     window.onresize = () => {
         renderer.setSize(window.innerWidth,window.innerHeight); 
