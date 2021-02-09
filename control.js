@@ -50,8 +50,9 @@ window.onload = () => {
     parent.addEventListener("click", (e) => {
         const child = e.target.matches(".play-btn, .play-btn *");
         if(child){
-            init();
-            audio.play();
+            // init();
+            // audio.play();
+            play.innerHTML = 'Pause';
         }
     });
     // play.addEventListener(touchEvent, () => {
