@@ -52,6 +52,7 @@ window.onload = () => {
         if(child){
             // init();
             // audio.play();
+            console.log("maaate");
             play.innerHTML = 'Pause';
         }
     });
