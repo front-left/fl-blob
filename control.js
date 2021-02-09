@@ -42,12 +42,12 @@ function init(){
     stream.connect(analyser);
     analyser.connect(audioCtx.destination)
 }
-
+let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
 
 window.onload = () => {
     // init();
     requestAnimationFrame(animate);
-    play.addEventListener('click', () => {
+    play.addEventListener(touchEvent, () => {
         if(!initialised){
             init();
             initialised = true;
