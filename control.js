@@ -1,5 +1,6 @@
-const musicSrc = "https://www.youtube.com/embed/tvqh-QMNkX8"
-// 'assets/datawave-latitude.mp3';
+const musicSrc = 'assets/datawave-latitude.mp3';
+// "https://www.youtube.com/embed/tvqh-QMNkX8"
+
 const fftSz    = 1024;
 const LOW_FREQ_BAND = 3;  // LOW: BANDS 0-3
 const MID_FREQ_BAND = 11; // MID: BANDS 4-23, HIGH: BANDS 24-511
