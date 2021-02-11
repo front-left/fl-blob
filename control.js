@@ -1,6 +1,4 @@
 const musicSrc = 'assets/datawave-latitude.mp3';
-// "https://www.youtube.com/embed/tvqh-QMNkX8"
-
 const fftSz    = 1024;
 const LOW_FREQ_BAND = 3;  // LOW: BANDS 0-3
 const MID_FREQ_BAND = 11; // MID: BANDS 4-23, HIGH: BANDS 24-511
@@ -12,16 +10,24 @@ let data = {
     mid:0,
     high:0
 }
-// let canvas = document.getElementById('canvas');
 let play = document.getElementById('play');
+let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+let audioElement = document.getElementById("song");
+
+
+// play.addEventListener('click', ()=>{
+//     audio.play();
+// });
 
 function init(){
     audioCtx  = new AudioContext();
-    audio = document.createElement('audio');
+    audio = document.getElementById('song');
     audio.src = musicSrc;
-    audio.loop = true;
+    audio.load();
+    // audio.loop = true;
     audio.crossOrigin = "anonymous";
-
+    // audio.controls = true;
+    
     stream = audioCtx.createMediaElementSource(audio);
     analyser = audioCtx.createAnalyser();
     analyser.fftSize = fftSz;
@@ -36,32 +42,32 @@ function init(){
     stream.connect(analyser);
     analyser.connect(audioCtx.destination)
 }
+let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
+const parent = document.querySelector(".parent");
 
+requestAnimationFrame(animate);
 
-window.onload = () => {
-    requestAnimationFrame(animate);
+play.addEventListener(touchEvent, () => {
+    if(!initialised){
+        init();
+        initialised = true;
+    }
+    if(!playing){
+        audio.play();
+        play.innerHTML = 'Pause';
+    } else {
+        audio.pause();
+        play.innerHTML = 'Play';
+    }
+    playing = !playing;
+});
 
-    play.addEventListener('click', () => {
-        if(!initialised){
-            init();
-            initialised = true;
-        }
-        if(!playing){
-            audio.play();
-            play.innerHTML = 'Pause';
-        } else {
-            audio.pause();
-            play.innerHTML = 'Play';
-        }
-        playing = !playing;
-    });
-
-    window.onresize = () => {
-        renderer.setSize(window.innerWidth,window.innerHeight); 
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-    };
+window.onresize = () => {
+    renderer.setSize(window.innerWidth,window.innerHeight); 
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
 };
+
 
 function analyseAudio(){
     analyser.getByteFrequencyData(buf);
@@ -100,7 +106,7 @@ var material = new THREE.MeshNormalMaterial();
 
 var sphere = new THREE.Mesh(sphere_geometry, material);
 scene.add(sphere);
-
+let simplex = new SimplexNoise();
 
 var update = function() {
 
@@ -125,7 +131,7 @@ var update = function() {
     sphere.geometry.normalsNeedUpdate = true;
     sphere.geometry.verticesNeedUpdate = true;
 }
-let simplex = new SimplexNoise();
+
 
 
 
