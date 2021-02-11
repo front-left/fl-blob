@@ -45,60 +45,29 @@ function init(){
 let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
 const parent = document.querySelector(".parent");
 
+requestAnimationFrame(animate);
+
 play.addEventListener(touchEvent, () => {
+    if(!initialised){
+        init();
+        initialised = true;
+    }
     if(!playing){
-        // audio.play();
+        audio.play();
         play.innerHTML = 'Pause';
     } else {
-        // audio.pause();
+        audio.pause();
         play.innerHTML = 'Play';
     }
     playing = !playing;
 });
 
-window.onload = () => {
-    // play.addEventListener(touchEvent, () => {
-    //     if(!playing){
-    //         // audio.play();
-    //         play.innerHTML = 'Pause';
-    //     } else {
-    //         // audio.pause();
-    //         play.innerHTML = 'Play';
-    //     }
-    //     playing = !playing;
-    // });
-    // init();
-    // requestAnimationFrame(animate);
-    // parent.addEventListener("click", (e) => {
-    //     const child = e.target.matches(".play-btn, .play-btn *");
-    //     if(child){
-    //         // init();
-    //         // audio.play();
-    //         console.log("maaate");
-    //         play.innerHTML = 'Pause';
-    //     }
-    // });
-    // play.addEventListener(touchEvent, () => {
-    //     if(!initialised){
-    //         init();
-    //         initialised = true;
-    //     }
-    //     if(!playing){
-    //         audio.play();
-    //         play.innerHTML = 'Pause';
-    //     } else {
-    //         audio.pause();
-    //         play.innerHTML = 'Play';
-    //     }
-    //     playing = !playing;
-    // });
-
-    window.onresize = () => {
-        renderer.setSize(window.innerWidth,window.innerHeight); 
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-    };
+window.onresize = () => {
+    renderer.setSize(window.innerWidth,window.innerHeight); 
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
 };
+
 
 function analyseAudio(){
     analyser.getByteFrequencyData(buf);
