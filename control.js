@@ -21,11 +21,6 @@ let audioElement = document.getElementById("song");
 audio = document.getElementById('song');
 
 audio.onplay = function() {
-	console.log(initialised);
-	if (!initialised){
-		init();
-		initialised = true;
-	}
 	 playing = true;
 };
 audio.onpause = function() {
@@ -51,11 +46,12 @@ function init(){
 
     stream.connect(analyser);
     analyser.connect(audioCtx.destination);
+	animate();
+	initialised = true;
 }
 let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
 const parent = document.querySelector(".parent");
 
-requestAnimationFrame(animate);
 
 // play.addEventListener(touchEvent, () => {
 //     if(!initialised){
@@ -158,3 +154,11 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
+let initBtn = document.getElementById("initBtn");
+initBtn.onclick = function(){
+	if (!initialised){
+		init();
+		
+		initBtn.remove();
+	}
+}
