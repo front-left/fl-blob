@@ -10,23 +10,32 @@ let data = {
     mid:0,
     high:0
 }
-let play = document.getElementById('play');
+
 let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
 let audioElement = document.getElementById("song");
-
 
 // play.addEventListener('click', ()=>{
 //     audio.play();
 // });
 
+audio = document.getElementById('song');
+
+audio.onplay = function() {
+	console.log(initialised);
+	if (!initialised){
+		init();
+		initialised = true;
+	}
+	 playing = true;
+};
+audio.onpause = function() {
+
+	 playing = false;
+};
+
+
 function init(){
     audioCtx  = new AudioContext();
-    audio = document.getElementById('song');
-    audio.src = musicSrc;
-    audio.load();
-    // audio.loop = true;
-    audio.crossOrigin = "anonymous";
-    // audio.controls = true;
     
     stream = audioCtx.createMediaElementSource(audio);
     analyser = audioCtx.createAnalyser();
@@ -47,20 +56,20 @@ const parent = document.querySelector(".parent");
 
 requestAnimationFrame(animate);
 
-play.addEventListener(touchEvent, () => {
-    if(!initialised){
-        init();
-        initialised = true;
-    }
-    if(!playing){
-        audio.play();
-        play.innerHTML = 'Pause';
-    } else {
-        audio.pause();
-        play.innerHTML = 'Play';
-    }
-    playing = !playing;
-});
+// play.addEventListener(touchEvent, () => {
+//     if(!initialised){
+//         init();
+//         initialised = true;
+//     }
+//     if(!playing){
+//         audio.play();
+//         play.innerHTML = 'Pause';
+//     } else {
+//         audio.pause();
+//         play.innerHTML = 'Play';
+//     }
+//     playing = !playing;
+// });
 
 window.onresize = () => {
     renderer.setSize(window.innerWidth,window.innerHeight); 
@@ -147,5 +156,4 @@ function animate() {
     renderer.render(scene,camera);
     requestAnimationFrame(animate);
 }
-
 
