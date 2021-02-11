@@ -44,9 +44,31 @@ function init(){
 }
 let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
 const parent = document.querySelector(".parent");
+
+play.addEventListener(touchEvent, () => {
+    if(!playing){
+        // audio.play();
+        play.innerHTML = 'Pause';
+    } else {
+        // audio.pause();
+        play.innerHTML = 'Play';
+    }
+    playing = !playing;
+});
+
 window.onload = () => {
+    // play.addEventListener(touchEvent, () => {
+    //     if(!playing){
+    //         // audio.play();
+    //         play.innerHTML = 'Pause';
+    //     } else {
+    //         // audio.pause();
+    //         play.innerHTML = 'Play';
+    //     }
+    //     playing = !playing;
+    // });
     // init();
-    requestAnimationFrame(animate);
+    // requestAnimationFrame(animate);
     // parent.addEventListener("click", (e) => {
     //     const child = e.target.matches(".play-btn, .play-btn *");
     //     if(child){
@@ -56,20 +78,20 @@ window.onload = () => {
     //         play.innerHTML = 'Pause';
     //     }
     // });
-    play.addEventListener(touchEvent, () => {
-        if(!initialised){
-            init();
-            initialised = true;
-        }
-        if(!playing){
-            audio.play();
-            play.innerHTML = 'Pause';
-        } else {
-            audio.pause();
-            play.innerHTML = 'Play';
-        }
-        playing = !playing;
-    });
+    // play.addEventListener(touchEvent, () => {
+    //     if(!initialised){
+    //         init();
+    //         initialised = true;
+    //     }
+    //     if(!playing){
+    //         audio.play();
+    //         play.innerHTML = 'Pause';
+    //     } else {
+    //         audio.pause();
+    //         play.innerHTML = 'Play';
+    //     }
+    //     playing = !playing;
+    // });
 
     window.onresize = () => {
         renderer.setSize(window.innerWidth,window.innerHeight); 
