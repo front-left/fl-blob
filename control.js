@@ -36,13 +36,15 @@ audio.onpause = function() {
 
 function init(){
     if (window.AudioContext) {
-		audioCtx = new AudioContext;
+		audioCtx = new AudioContext();
 	} else if (window.webkitAudioContext){
-		window.webkitAudioContext() ;
+		audioCtx = new webkitAudioContext() ;
 	} else {
 		console.log("uh oh");
 	}
+	
     stream = audioCtx.createMediaElementSource(audio);
+	console.log(stream);
     analyser = audioCtx.createAnalyser();
     analyser.fftSize = fftSz;
     analyser.minDecibels = -90;
