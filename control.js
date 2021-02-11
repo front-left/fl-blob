@@ -35,7 +35,7 @@ audio.onpause = function() {
 
 
 function init(){
-    audioCtx  = new AudioContext();
+    audioCtx  = new AudioContext() || new webkitAudioContext() ;
     
     stream = audioCtx.createMediaElementSource(audio);
     analyser = audioCtx.createAnalyser();
