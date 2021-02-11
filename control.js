@@ -35,17 +35,11 @@ audio.onpause = function() {
 
 
 function init(){
-    if (window.AudioContext) {
-		audioCtx = new AudioContext();
-	} else if (window.webkitAudioContext){
-		audioCtx = new webkitAudioContext() ;
-	} else {
-		console.log("uh oh");
-	}
-	
+    var audioCtx = new window.AudioContext;
+	analyser = audioCtx.createAnalyser();
     stream = audioCtx.createMediaElementSource(audio);
 	console.log(stream);
-    analyser = audioCtx.createAnalyser();
+    
     analyser.fftSize = fftSz;
     analyser.minDecibels = -90;
     sensitivity = 1.0
@@ -56,7 +50,7 @@ function init(){
     buf = new Uint8Array(bufLength);
 
     stream.connect(analyser);
-    analyser.connect(audioCtx.destination)
+    analyser.connect(audioCtx.destination);
 }
 let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
 const parent = document.querySelector(".parent");
@@ -91,7 +85,7 @@ function analyseAudio(){
     let i = 0;
     for (; i < LOW_FREQ_BAND; i++) e += buf[i];
     data.low = e * 1/LOW_FREQ_BAND * 1/255;
-    
+    // console.log(data);
     e = 0;
     for (; i < MID_FREQ_BAND; i++) e += buf[i];
     data.mid = e * 1/(MID_FREQ_BAND - LOW_FREQ_BAND) * 1/255;
