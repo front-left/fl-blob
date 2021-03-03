@@ -12,28 +12,34 @@ let data = {
 }
 
 let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
-let audioElement = document.getElementById("song");
+let playButton = document.getElementById("play");
 
-// play.addEventListener('click', ()=>{
-//     audio.play();
-// });
+var sound = new Howl({
+    src:musicSrc,
+    ext: ['mp3'],
+    // html5: true
+});
 
-audio = document.getElementById('song');
-
-audio.onplay = function() {
-	 playing = true;
-};
-audio.onpause = function() {
-
-	 playing = false;
-};
-
+let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
+playButton.addEventListener(touchEvent, () => {
+    if(!initialised){
+        init();
+        initialised = true;
+    }
+    if(!playing){
+        sound.play();
+        playButton.innerHTML = 'Pause';  
+    } else {
+        sound.pause();
+        play.innerHTML = 'Play';
+    }
+    playing = !playing;
+});
 
 function init(){
-    var audioCtx = new window.AudioContext;
-	analyser = audioCtx.createAnalyser();
-    stream = audioCtx.createMediaElementSource(audio);
-	console.log(stream);
+    analyser = Howler.ctx.createAnalyser();
+    Howler.masterGain.connect(analyser);
+   
     
     analyser.fftSize = fftSz;
     analyser.minDecibels = -90;
@@ -43,30 +49,12 @@ function init(){
     analyser.smoothingTimeConstant = 0.75;
     bufLength = analyser.frequencyBinCount;
     buf = new Uint8Array(bufLength);
-
-    stream.connect(analyser);
-    analyser.connect(audioCtx.destination);
 	animate();
-	initialised = true;
 }
-let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
-const parent = document.querySelector(".parent");
 
 
-// play.addEventListener(touchEvent, () => {
-//     if(!initialised){
-//         init();
-//         initialised = true;
-//     }
-//     if(!playing){
-//         audio.play();
-//         play.innerHTML = 'Pause';
-//     } else {
-//         audio.pause();
-//         play.innerHTML = 'Play';
-//     }
-//     playing = !playing;
-// });
+
+
 
 window.onresize = () => {
     renderer.setSize(window.innerWidth,window.innerHeight); 
@@ -77,6 +65,7 @@ window.onresize = () => {
 
 function analyseAudio(){
     analyser.getByteFrequencyData(buf);
+    // console.log(buf);
     let e = 0;
     let i = 0;
     for (; i < LOW_FREQ_BAND; i++) e += buf[i];
@@ -154,11 +143,3 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-let initBtn = document.getElementById("initBtn");
-initBtn.onclick = function(){
-	if (!initialised){
-		init();
-		
-		initBtn.remove();
-	}
-}
